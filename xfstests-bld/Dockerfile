@@ -2,8 +2,7 @@
 # See https://github.com/tytso/xfstests-bld/blob/master/README
 #
 # VERSION 0.1
-#FROM debian
-FROM debian-vzqa
+FROM debian
 
 MAINTAINER Dmitry Monakhov dmonakhov@openvz.org
 
@@ -35,10 +34,17 @@ RUN apt-get update && \
 # During build stage we simply fetch image precreated by tytso@
 #
 
+## Custom config is required in order to workaroung build bug
+## TODO: remove  after fix will be merged to xfstests-bld and xfsprogs repos
+##       and switch back to tytso's git repo.
+ADD config.custom /tmp/
+
 RUN mkdir /devel && \
     cd /devel && \
     git clone https://github.com/dmonakhov/xfstests-bld.git xfstests-bld && \
     cd xfstests-bld && \
+    cat /tmp/config.custom >> config && \
+    unlink /tmp/config.custom && \
     make && \
     make tarball && \
     curl https://www.kernel.org/pub/linux/kernel/people/tytso/kvm-xfstests/root_fs.img.x86_64 \
