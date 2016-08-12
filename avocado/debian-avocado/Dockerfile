@@ -6,9 +6,16 @@ FROM debian
 MAINTAINER Dmitry Monakhov dmonakhov@openvz.org
 
 # Install and clean in one step to decrease image size
-ARG AVOCADO_PKG="fabric gdebi-core python-lzma python-pip python-pystache python-setuptools python-stevedore python-yaml"
 RUN apt-get update && \
-    apt-get -y install $AVOCADO_PKG && \
+    apt-get -y install \
+	fabric \
+	gdebi-core \
+	python-lzma \
+	python-pip \
+	python-pystache \
+	python-setuptools \
+	python-stevedore \
+	python-yaml && \
     pip install avocado-framework aexpect && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* \
