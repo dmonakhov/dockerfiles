@@ -8,3 +8,8 @@ Usage ::
 ```
 $ avocado run sleeptest.py --docker debian-avocado
 ```
+
+## xfstests-bld
+**xfstests-bld**: xfstests-bld/Dockerfile
+Base debian image with all necessary packages to build xfstests-bld from scratch.
+**TODO**: Submit fixe
